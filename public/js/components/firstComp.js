@@ -48,7 +48,12 @@ var Layout = function (_Component) {
       return _react2.default.createElement(
         'div',
         { className: 'home' },
-        'This is the home page'
+        'This is the home page',
+        _react2.default.createElement(
+          'div',
+          { className: 'col-md-offset-4 col-md-6' },
+          _react2.default.createElement('div', { className: 'box1' })
+        )
       );
     }
   }]);
