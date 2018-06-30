@@ -1,6 +1,6 @@
 webpackJsonp([0],{
 
-/***/ 152:
+/***/ 160:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -16,11 +16,11 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(4);
+var _reactDom = __webpack_require__(5);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _reactDatepicker = __webpack_require__(14);
+var _reactDatepicker = __webpack_require__(16);
 
 var _reactDatepicker2 = _interopRequireDefault(_reactDatepicker);
 
@@ -106,7 +106,7 @@ exports.default = Home;
 
 /***/ }),
 
-/***/ 153:
+/***/ 161:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -122,7 +122,7 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(4);
+var _reactDom = __webpack_require__(5);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
@@ -207,7 +207,7 @@ exports.default = Home;
 
 /***/ }),
 
-/***/ 155:
+/***/ 180:
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
@@ -219,11 +219,11 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _reactDom = __webpack_require__(4);
+var _reactDom = __webpack_require__(5);
 
 var _reactDom2 = _interopRequireDefault(_reactDom);
 
-var _reactDatepicker = __webpack_require__(14);
+var _reactDatepicker = __webpack_require__(16);
 
 var _reactDatepicker2 = _interopRequireDefault(_reactDatepicker);
 
@@ -231,11 +231,15 @@ var _moment = __webpack_require__(0);
 
 var _moment2 = _interopRequireDefault(_moment);
 
-var _Home = __webpack_require__(152);
+var _axios = __webpack_require__(159);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _Home = __webpack_require__(160);
 
 var _Home2 = _interopRequireDefault(_Home);
 
-var _Results = __webpack_require__(153);
+var _Results = __webpack_require__(161);
 
 var _Results2 = _interopRequireDefault(_Results);
 
@@ -258,11 +262,13 @@ var Layout = function (_Component) {
     _this.state = {
       name: 'Joe',
       location: 'home',
-      date: (0, _moment2.default)()
+      date: (0, _moment2.default)(),
+      data: ''
     };
 
     _this.routingSystem = _this.routingSystem.bind(_this);
     _this.handleDateChange = _this.handleDateChange.bind(_this);
+    _this.apiCall = _this.apiCall.bind(_this);
     return _this;
   }
 
@@ -290,7 +296,27 @@ var Layout = function (_Component) {
       this.setState({
         date: date
       }, function () {
-        return console.log(_this2.state);
+        return console.log(_this2.state.date.unix());
+      });
+    }
+  }, {
+    key: 'apiCall',
+    value: function apiCall() {
+      // https://min-api.cryptocompare.com/data/pricehistorical?fsym=ETH&tsyms=BTC,USD,EUR&ts=1452680400&extraParams=your_app_name
+
+      var self = this;
+
+      _axios2.default.get('https://min-api.cryptocompare.com/data/pricehistorical?fsym=ETH&tsyms=BTC,USD,EUR&ts=1452680400&extraParams=your_app_name').then(function (response) {
+        // console.log(response.data.ETH);
+
+        // this.setState is not correct
+        self.setState({
+          data: response.data.ETH
+        }, function () {
+          console.log(response.data.ETH);
+        });
+      }).catch(function (error) {
+        console.log(error);
       });
     }
   }, {
@@ -307,7 +333,7 @@ var Layout = function (_Component) {
             null,
             _react2.default.createElement(
               'div',
-              { className: 'logo' },
+              { className: 'logo', onClick: this.apiCall },
               'Crypto Profits'
             ),
             _react2.default.createElement(
@@ -335,4 +361,4 @@ _reactDom2.default.render(_react2.default.createElement(Layout, null), app);
 
 /***/ })
 
-},[155]);
+},[180]);
