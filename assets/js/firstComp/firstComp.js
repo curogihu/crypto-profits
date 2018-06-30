@@ -13,10 +13,16 @@ class Layout extends Component {
   }
   render () {
     return (<div className='home'>
-        This is the home page
-        <div className='col-md-offset-4 col-md-6'>
-          <div className='box1'>
-          </div>
+        <div className="container">
+          <header>
+            <div className="logo">
+              Crypto Profits
+            </div>
+
+            <nav className="menu">
+              <a href="#">Register</a>
+            </nav>
+          </header>
         </div>
       </div>)
   }

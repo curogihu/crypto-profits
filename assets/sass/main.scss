@@ -2,13 +2,40 @@
 @import "reset";
 @import "variables";
 @import "grid";
+@import "home";
+@import "results";
 
 body {
   font-family: 'Roboto', sans-serif;
-  // background: purple;
+  background: #0f0449;
 }
 
-.box1 {
-	background: red;
-	height: 200px;
+header {
+	padding: 17px 0;
+	overflow: auto;
+
+	.logo {
+		display: inline-block;
+		float: left;
+		color: white;
+	}
+
+	.menu {
+		displya: inline-block;
+		float: right;
+		color: white;
+
+		a {
+			color: white;
+			text-decoration: none;
+			display: inline-block;
+			padding: 10px 20px;
+			border-radius: 3px;
+			border: 1px solid #304ffe;
+			transition: all 0.3s ease-in-out;
+			&:hover {
+				background: #304ffe;
+			}
+		}
+	}
 }
