@@ -273,6 +273,24 @@ var Layout = function (_Component) {
   }
 
   _createClass(Layout, [{
+    key: 'componentWillMount',
+    value: function componentWillMount() {
+      var self = this;
+
+      _axios2.default.get('https://min-api.cryptocompare.com/data/pricehistorical?fsym=ETH&tsyms=BTC,USD,EUR&ts=1452680400&extraParams=your_app_name').then(function (response) {
+        // console.log(response.data.ETH);
+
+        // this.setState is not correct
+        self.setState({
+          btcToday: response.data.ETH
+        }, function () {
+          console.log(response.data.ETH);
+        });
+      }).catch(function (error) {
+        console.log(error);
+      });
+    }
+  }, {
     key: 'routingSystem',
     value: function routingSystem() {
       switch (this.state.location) {
@@ -305,14 +323,24 @@ var Layout = function (_Component) {
       // https://min-api.cryptocompare.com/data/pricehistorical?fsym=ETH&tsyms=BTC,USD,EUR&ts=1452680400&extraParams=your_app_name
 
       var self = this;
-
-      _axios2.default.get('https://min-api.cryptocompare.com/data/pricehistorical?fsym=ETH&tsyms=BTC,USD,EUR&ts=1452680400&extraParams=your_app_name').then(function (response) {
+      // ` is shift + option + _
+      _axios2.default.get('https://min-api.cryptocompare.com/data/pricehistorical?fsym=ETH&tsyms=BTC,USD,EUR&ts=' + (0, _moment2.default)().unix + '&extraParams=your_app_name').then(function (response) {
         // console.log(response.data.ETH);
 
         // this.setState is not correct
         self.setState({
           data: response.data.ETH
         }, function () {
+
+          var CP = self.state.data.USD;
+          var SP = self.state.btcToday.USD;
+
+          if (CP < SP) {
+            console.log('profit');
+          } else {
+            console.log('loss');
+          }
+
           console.log(response.data.ETH);
         });
       }).catch(function (error) {

@@ -24,6 +24,28 @@ class Layout extends Component {
     this.apiCall = this.apiCall.bind(this)
   }
 
+  componentWillMount() {
+    var self = this;
+
+    axios.get('https://min-api.cryptocompare.com/data/pricehistorical?fsym=ETH&tsyms=BTC,USD,EUR&ts=1452680400&extraParams=your_app_name')
+      .then(function (response) {
+        // console.log(response.data.ETH);
+
+        // this.setState is not correct
+        self.setState({
+          btcToday: response.data.ETH
+        }, () => {
+          console.log(response.data.ETH);
+
+        })
+
+      })
+
+      .catch(function (error) {
+        console.log(error);
+      });
+  }
+
   routingSystem () {
     switch(this.state.location) {
         case 'home':
@@ -49,8 +71,8 @@ class Layout extends Component {
     // https://min-api.cryptocompare.com/data/pricehistorical?fsym=ETH&tsyms=BTC,USD,EUR&ts=1452680400&extraParams=your_app_name
 
     var self = this;
-
-    axios.get('https://min-api.cryptocompare.com/data/pricehistorical?fsym=ETH&tsyms=BTC,USD,EUR&ts=1452680400&extraParams=your_app_name')
+    // ` is shift + option + _
+    axios.get(`https://min-api.cryptocompare.com/data/pricehistorical?fsym=ETH&tsyms=BTC,USD,EUR&ts=${moment().unix}&extraParams=your_app_name`)
       .then(function (response) {
         // console.log(response.data.ETH);
 
@@ -58,7 +80,20 @@ class Layout extends Component {
         self.setState({
           data: response.data.ETH
         }, () => {
+
+          const CP = self.state.data.USD
+          const SP = self.state.btcToday.USD;
+
+          if(CP < SP) {
+            console.log('profit')
+
+          } else {
+            console.log('loss')
+
+          }
+
           console.log(response.data.ETH);
+
 
         })
 
