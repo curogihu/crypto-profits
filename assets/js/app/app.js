@@ -1,5 +1,6 @@
 import React, { Component} from 'react'
 import ReactDOM from 'react-dom'
+import Home from './home.js'
 
 class Layout extends Component {
   constructor () {
@@ -23,6 +24,8 @@ class Layout extends Component {
               <a href="#">Register</a>
             </nav>
           </header>
+
+          <Home />
         </div>
       </div>)
   }
