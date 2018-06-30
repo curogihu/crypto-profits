@@ -1,6 +1,9 @@
 import React, { Component} from 'react'
 import ReactDOM from 'react-dom'
 
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
+
 export default class Home extends Component {
   constructor () {
     super()
@@ -25,7 +28,7 @@ export default class Home extends Component {
             <input type="text" name="amount" />
 
             <label>Date</label>
-            <input type="text" name="date" />
+            <DatePicker selected={this.props.globalState.date} onChange={this.props.handleDateChange}/>
 
             <button type="submit">Check Profits</button>
           </div>
